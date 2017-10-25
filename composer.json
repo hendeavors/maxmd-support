@@ -1,0 +1,23 @@
+{
+    "name": "endeavors/support-maxmd",
+    "description": "Provide an easy api to integrate with maxmd",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Rodriguez",
+            "email": "adam_rodriguez@bitbucket.org"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Endeavors\\MaxMD\\Support\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Endeavors\\MaxMD\\Support\\Tests\\": "tests/"
+        }
+    }
+}
