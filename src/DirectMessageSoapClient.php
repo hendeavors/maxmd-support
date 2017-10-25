@@ -2,7 +2,6 @@
 
 namespace Endeavors\MaxMD\Support;
 
-
 final class DirectMessageSoapClient extends SoapClient
 {
     private static $instance = null;
@@ -15,7 +14,7 @@ final class DirectMessageSoapClient extends SoapClient
     public static function getInstance()
     {
         if(null == static::instance()) {
-            static::$instance = new RegistrationSoapClient("https://evalapi.max.md:8445/registration/services/PatientRegistrationService?wsdl", array('trace' => 1));
+            static::$instance = new DirectMessageSoapClient("https://evalapi.max.md:8445/message/services/DirectMessageService?wsdl", array('trace' => 1));
         }
 
         return static::instance();

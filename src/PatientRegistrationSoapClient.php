@@ -2,7 +2,6 @@
 
 namespace Endeavors\MaxMD\Support;
 
-
 final class PatientRegistrationSoapClient extends SoapClient
 {
     private static $instance = null;

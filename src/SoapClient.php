@@ -2,14 +2,17 @@
 
 namespace Endeavors\MaxMD\Support;
 
-
+/**
+ * This seems to work with the maxmd response, no guarantees on
+ * This working with other mtom soap servers
+ */
 class SoapClient extends \SoapClient
 {
     public function __doRequest($request, $location, $action, $version, $one_way = 0) 
     {
 		$response = parent::__doRequest($request, $location, $action, $version, $one_way);
 		
-		// 		if resposnse content type is mtom strip away everything but the xml.
+		// if resposnse content type is mtom strip away everything but the xml.
 		if (strpos($response, "Content-Type: application/xop+xml") !== false) {
 			
 			$endheaderposition = strpos($response,">")+1;
@@ -26,8 +29,6 @@ class SoapClient extends \SoapClient
 		return $response;
 	}
 	
-	
-	
 	private function sanitize($str, $valid = '')
 	{
 		$validChars = '12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@.</>:-\"?= ' . $valid;
@@ -41,22 +42,15 @@ class SoapClient extends \SoapClient
 			$c = mb_substr($fname, $i, 1);
 			
 			if(mb_strpos($validChars, $c)===false) {
-				
-				$clean.='';
-				
+				$clean.='';	
 			}
 			else {
-				
 				$clean.=$c;
-				
 			}
-			
 		}
 		
-		if($clean=='') {
-			
-			$clean = '';
-			
+		if($clean=='') {	
+			$clean = '';	
 		}
 		
 		return $clean;
