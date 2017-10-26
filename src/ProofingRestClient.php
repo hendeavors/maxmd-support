@@ -55,7 +55,7 @@ class ProofingRestClient
             curl_setopt($_h, CURLOPT_POST, 1);
         }
         if(count($params)) {
-            curl_setopt($_h, CURLOPT_POSTFIELDS, $params);
+            curl_setopt($_h, CURLOPT_POSTFIELDS, http_build_query($params));
         }
 
         $resp = curl_exec($_h);
