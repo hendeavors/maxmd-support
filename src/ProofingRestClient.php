@@ -47,7 +47,7 @@ class ProofingRestClient
         curl_setopt($_h, CURLOPT_DNS_USE_GLOBAL_CACHE, false );
         curl_setopt($_h, CURLOPT_DNS_CACHE_TIMEOUT, 2 );
 
-        if(!((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443)) {
+        if(!((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) {
             curl_setopt($_h, CURLOPT_SSL_VERIFYPEER, 0);
             curl_setopt($_h, CURLOPT_SSL_VERIFYHOST, 0);
         }
