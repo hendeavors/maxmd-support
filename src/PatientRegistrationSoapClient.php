@@ -6,7 +6,7 @@ final class PatientRegistrationSoapClient extends SoapClient
 {
     private static $instance = null;
 
-    private final static function instance()
+    final private static function instance()
     {
         return static::$instance;
     }
