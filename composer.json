@@ -1,5 +1,5 @@
 {
-    "name": "endeavors/support-maxmd",
+    "name": "endeavors/maxmd-support",
     "description": "Provide an easy api to integrate with maxmd",
     "type": "library",
     "license": "MIT",
