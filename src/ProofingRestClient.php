@@ -2,7 +2,9 @@
 
 namespace Endeavors\MaxMD\Support;
 
-class ProofingRestClient
+use Endeavors\MaxMD\Support\Contracts\IRestClient;
+
+class ProofingRestClient implements IRestClient
 {
     private static $instance = null;
 
