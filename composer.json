@@ -19,5 +19,13 @@
         "psr-4": {
             "Endeavors\\MaxMD\\Support\\Tests\\": "tests/"
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.2.*"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
     }
 }

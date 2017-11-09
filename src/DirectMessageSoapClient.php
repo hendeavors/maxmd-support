@@ -18,5 +18,5 @@ final class DirectMessageSoapClient extends SoapClient
         }
 
         return static::instance();
-    }
+    }    
 }
