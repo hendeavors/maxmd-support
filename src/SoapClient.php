@@ -15,7 +15,7 @@ class SoapClient extends \SoapClient
         // Catch XML response
         preg_match('/<soap[\s\S]*nvelope>/', $response, $xml_response);
         if (!is_array($xml_response) || !count($xml_response)) {
-            throw new Exception('No XML has been found.');
+            throw new \Exception('No XML has been found.');
         }
         $xml_response = reset($xml_response);
         // Look if xop then replace by base64_encode(binary)
