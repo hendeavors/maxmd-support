@@ -21,7 +21,8 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "3.2.*"
+        "orchestra/testbench": "3.2.*",
+        "endeavors/maxmd-apiauth": "0.1.*@dev"
     },
     "extra": {
         "branch-alias": {
