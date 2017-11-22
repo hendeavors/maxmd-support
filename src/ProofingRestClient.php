@@ -23,7 +23,7 @@ class ProofingRestClient implements IRestClient
     final public static function getInstance()
     {
         if( null === static::instance() ) {
-            static::$instance = new ProofingRestClient("https://evalapi.max.md:8445/AutoProofingRESTful/rest/app/");
+            static::$instance = new ProofingRestClient("https://directapi.max.md:8445/AutoProofingRESTful/rest/app/");
         }
 
         return static::instance();
