@@ -19,4 +19,9 @@ final class Client
     {
         return PatientRegistrationSoapClient::getInstance();
     }
+
+    final public static function DirectUtil()
+    {
+        return DirectUtilSoapClient::getInstance();
+    }
 }
