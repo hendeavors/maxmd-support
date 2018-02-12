@@ -1,6 +1,6 @@
 {
     "name": "endeavors/maxmd-support",
-    "description": "Provide an easy api to integrate with maxmd",
+    "description": "Provide an easy api to integrate with maxmd using php",
     "type": "library",
     "license": "MIT",
     "authors": [
