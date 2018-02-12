@@ -1,7 +1,5 @@
 <?php
 
-// https://evalapi.max.md:8445/registration/services/DirectUtilsService?wsdl
-
 namespace Endeavors\MaxMD\Support;
 
 final class DirectUtilSoapClient extends SoapClient
