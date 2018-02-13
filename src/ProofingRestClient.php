@@ -29,12 +29,12 @@ class ProofingRestClient implements IRestClient
         return static::instance();
     }
 
-    public function Post($endpoint, $params, $headers = array())
+    public function Post($endpoint, $params = [], $headers = array())
     {
         return $this->request($endpoint, "POST", $params, $headers);
     }
 
-    public function Get($endpoint, $params, $headers = array())
+    public function Get($endpoint, $params = [], $headers = array())
     {
         return $this->request($endpoint, "POST", $params, $headers);
     }
@@ -56,7 +56,7 @@ class ProofingRestClient implements IRestClient
         if("POST" === $method) {
             curl_setopt($_h, CURLOPT_POST, count($params));
             curl_setopt($_h, CURLOPT_POSTFIELDS, json_encode($params));
-        } 
+        }
 
         $resp = curl_exec($_h);
         curl_close($_h);
