@@ -21,7 +21,6 @@ abstract class RestClient implements IRestClient
     protected function request($endpoint, $method = "GET", $params = array(), $headers = array())
     {
         $url = $this->url() . $endpoint;
-        var_dump($url);
         $_h = curl_init();
         curl_setopt($_h, CURLOPT_URL, $url);
         curl_setopt($_h, CURLOPT_HTTPHEADER, $headers);

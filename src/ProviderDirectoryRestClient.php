@@ -51,49 +51,78 @@ class ProviderDirectoryRestClient extends RestClient
     }
 
     /**
-     * Overriden to add username and password to the end of all urls.
-     * @see \Endeavors\MaxMD\Support\RestClient::Get
-     */
-    public function Get($endpoint, $params = [], $headers = [])
-    {
-        $endpoint = rtrim($endpoint, '\/') . $this->username . '/' . $this->password;
-        return parent::Get($endpoint, $params, $headers);
-    }
-
-    /**
      * Get all Provider records
      * @return array provider records
      */
     public function all()
     {
-        return $this->Get('');
+        return $this->getArray('');
     }
 
     public function byHisp($hisp)
     {
+      return $this->getArray($hisp);
     }
 
     public function byFirstNameLastName($firstName, $lastName)
     {
+      $results = $this->getArray('ByName/' . $firstName . '/' . $lastName);
+      return is_array($results[0]) ? $results[0] : $results;
     }
 
     public function byProviderNpi($npi)
     {
+      $results = $this->getArray('ByProviderNPI/' . $npi);
+      return is_array($results[0]) ? $results[0] : $results;
     }
 
     public function byOrganizationNpi($npi)
     {
+        return $this->getArray('ByOrganizationNPI/' . $npi);
     }
 
     public function byOrganizationName($organizationName)
     {
+        return $this->getArray('ByOrganizationName/' . $organizationName);
     }
 
     public function byZipCodeRange($startZipCode, $endZipCode)
     {
+        return $this->getArray('ByZipcodeRange/' . $startZipCode . '/' . $endZipCode);
     }
 
     public function byCustom($hispOperator, $directAddress, $stateList, $startdate, $enddate, $status)
     {
+        return $this->getArray($hispOperator . '/' . $directAddress . '/' . $stateList . '/' . $startdate . '/' . $enddate . '/' . $status);
+    }
+
+    /**
+     * Turn the response from the api into array from csv.
+     * We will also add the username and password to all requests.
+     * @return array - the result from the api as an array
+     */
+    protected function getArray($endpoint, $params = [], $headers = [])
+    {
+        $endpointWithUserAndPass = $this->username . '/' . $this->password;
+        $endpoint = rtrim($endpoint, '\/');
+
+        if(strlen($endpoint)) {
+            $endpointWithUserAndPass = rtrim($endpoint, '\/') . '/' . $this->username . '/' . $this->password;
+        }
+
+        // Split into lines and parse into arrays
+        $asArray = array_map('str_getcsv', explode("\n", parent::Get($endpointWithUserAndPass, $params, $headers)));
+
+        // Make columns headers on each row
+        array_walk($asArray, function(&$a) use ($asArray) {
+          if(count($asArray[0]) === count($a)) {
+              $a = array_combine($asArray[0], $a);
+          }
+        });
+
+        // Remove columns row
+        array_shift($asArray);
+
+        return $asArray;
     }
 }
