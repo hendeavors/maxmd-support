@@ -61,19 +61,19 @@ class ProviderDirectoryRestClient extends RestClient
 
     public function byHisp($hisp)
     {
-      return $this->getArray($hisp);
+        return $this->getArray(rawurlencode($hisp));
     }
 
     public function byFirstNameLastName($firstName, $lastName)
     {
-      $results = $this->getArray('ByName/' . $firstName . '/' . $lastName);
-      return is_array($results[0]) ? $results[0] : $results;
+        $results = $this->getArray('ByName/' . rawurlencode($firstName) . '/' . rawurlencode($lastName));
+        return is_array($results[0]) ? $results[0] : $results;
     }
 
     public function byProviderNpi($npi)
     {
-      $results = $this->getArray('ByProviderNPI/' . $npi);
-      return is_array($results[0]) ? $results[0] : $results;
+        $results = $this->getArray('ByProviderNPI/' . $npi);
+        return is_array($results[0]) ? $results[0] : $results;
     }
 
     public function byOrganizationNpi($npi)
@@ -83,7 +83,7 @@ class ProviderDirectoryRestClient extends RestClient
 
     public function byOrganizationName($organizationName)
     {
-        return $this->getArray('ByOrganizationName/' . $organizationName);
+        return $this->getArray('ByOrganizationName/' . rawurlencode($organizationName));
     }
 
     public function byZipCodeRange($startZipCode, $endZipCode)
@@ -91,9 +91,9 @@ class ProviderDirectoryRestClient extends RestClient
         return $this->getArray('ByZipcodeRange/' . $startZipCode . '/' . $endZipCode);
     }
 
-    public function byCustom($hispOperator, $directAddress, $stateList, $startdate, $enddate, $status)
+    public function byCustom($hispOperator, $directAddress, $stateList, $startDate, $endDate, $status)
     {
-        return $this->getArray($hispOperator . '/' . $directAddress . '/' . $stateList . '/' . $startdate . '/' . $enddate . '/' . $status);
+        return $this->getArray(rawurlencode($hispOperator) . '/' . $directAddress . '/' . rawurlencode($stateList) . '/' . $startDate . '/' . $endDate . '/' . $status);
     }
 
     /**
@@ -106,18 +106,18 @@ class ProviderDirectoryRestClient extends RestClient
         $endpointWithUserAndPass = $this->username . '/' . $this->password;
         $endpoint = rtrim($endpoint, '\/');
 
-        if(strlen($endpoint)) {
+        if (strlen($endpoint)) {
             $endpointWithUserAndPass = rtrim($endpoint, '\/') . '/' . $this->username . '/' . $this->password;
         }
 
         // Split into lines and parse into arrays
-        $asArray = array_map('str_getcsv', explode("\n", parent::Get($endpointWithUserAndPass, $params, $headers)));
+        $asArray = array_map('str_getcsv', explode("\n", trim(parent::Get($endpointWithUserAndPass, $params, $headers), "\n")));
 
         // Make columns headers on each row
-        array_walk($asArray, function(&$a) use ($asArray) {
-          if(count($asArray[0]) === count($a)) {
-              $a = array_combine($asArray[0], $a);
-          }
+        array_walk($asArray, function (&$a) use ($asArray) {
+            if (count($asArray[0]) === count($a)) {
+                $a = array_combine($asArray[0], $a);
+            }
         });
 
         // Remove columns row
