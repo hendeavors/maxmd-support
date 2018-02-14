@@ -14,7 +14,7 @@ final class DirectUtilSoapClient extends SoapClient
     public static function getInstance()
     {
         if(null == static::instance()) {
-            static::$instance = new DirectUtilSoapClient("https://api.directmdemail.com/registration/services/DirectUtilsService?wsdl", array('trace' => 1));
+            static::$instance = new DirectUtilSoapClient("https://evalapi.max.md:8445/registration/services/DirectUtilsService?wsdl", array('trace' => 1));
         }
 
         return static::instance();

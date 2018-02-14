@@ -14,7 +14,7 @@ final class PatientRegistrationSoapClient extends SoapClient
     public static function getInstance()
     {
         if(null == static::instance()) {
-            static::$instance = new PatientRegistrationSoapClient("https://api.directmdemail.com/registration/services/PatientRegistrationService?wsdl", array('trace' => 1));
+            static::$instance = new PatientRegistrationSoapClient("https://evalapi.max.md:8445/registration/services/PatientRegistrationService?wsdl", array('trace' => 1));
         }
 
         return static::instance();
