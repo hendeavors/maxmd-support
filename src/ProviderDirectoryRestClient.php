@@ -1,13 +1,14 @@
 <?php
 namespace Endeavors\MaxMD\Support;
 
+use Endeavors\MaxMD\Support\Contracts\IRestClient;
 use Endeavors\MaxMD\Support\RestClient;
 
 /**
  * Make all rest calls to the provider directory endpoints provided by MaxMd
  * https://www.maxmdirect.com.eval.max.md/api/Directory/RESTful
  */
-final class ProviderDirectoryRestClient extends RestClient
+final class ProviderDirectoryRestClient extends RestClient implements IRestClient
 {
     private static $instance = null;
 
@@ -18,12 +19,6 @@ final class ProviderDirectoryRestClient extends RestClient
     private $url;
 
     /**
-     * The stub after the domain to the api endpoints
-     * @var string
-     */
-    private $stub = '/Directory/rest/getDirectory/';
-
-    /**
      * The username and password we will need to authenticate with the api
      * @var string
      */
@@ -32,11 +27,11 @@ final class ProviderDirectoryRestClient extends RestClient
 
     /**
      * Build the class given the authentication credentials and the base domain
-     * @param string $domain   The base domain we will make our calls to. ie 'https://directapi.max.md:8445'
+     * @param string $url   The base url we will make our calls to. ie 'https://directapi.max.md:8445/Directory/rest/getDirectory/'
      */
-    public function __construct($domain)
+    public function __construct($url)
     {
-        $this->url = rtrim($domain, '\/') . $this->stub;
+        $this->url = rtrim($url, '\/') . '/';
     }
 
     /**
@@ -66,7 +61,7 @@ final class ProviderDirectoryRestClient extends RestClient
     public static function getInstance()
     {
         if (null === static::$instance) {
-            static::$instance = new ProviderDirectoryRestClient("https://evalapi.max.md:8445");
+            static::$instance = new ProviderDirectoryRestClient("https://directapi.max.md:8445/Directory/rest/getDirectory/");
         }
 
         return static::$instance;
