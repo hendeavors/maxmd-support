@@ -61,7 +61,7 @@ final class ProviderDirectoryRestClient extends RestClient implements IRestClien
     public static function getInstance()
     {
         if (null === static::$instance) {
-            static::$instance = new ProviderDirectoryRestClient("https://directapi.max.md:8445/Directory/rest/getDirectory/");
+            static::$instance = new ProviderDirectoryRestClient("https://evalapi.max.md:8445/Directory/rest/getDirectory/");
         }
 
         return static::$instance;
