@@ -39,7 +39,7 @@ class ProofingRestClient extends RestClient implements IRestClient
         return $this->url;
     }
 
-    public function Get($endpoint, $params = [], $headers = array())
+    public function Get($endpoint, $params = [], $headers = [])
     {
         return $this->request($endpoint, "POST", $params, $headers);
     }
