@@ -3,8 +3,9 @@
 namespace Endeavors\MaxMD\Support;
 
 use Endeavors\MaxMD\Support\Contracts\IRestClient;
+use Endeavors\MaxMD\Support\RestClient;
 
-class ProofingRestClient implements IRestClient
+class ProofingRestClient extends RestClient implements IRestClient
 {
     private static $instance = null;
 
@@ -29,37 +30,17 @@ class ProofingRestClient implements IRestClient
         return static::instance();
     }
 
-    public function Post($endpoint, $params = [], $headers = array())
+    /**
+     * The full base url for all proofing endpoints
+     * @return string - the url
+     */
+    public function url()
     {
-        return $this->request($endpoint, "POST", $params, $headers);
+        return $this->url;
     }
 
     public function Get($endpoint, $params = [], $headers = array())
     {
         return $this->request($endpoint, "POST", $params, $headers);
-    }
-
-    protected function request($endpoint, $method = "GET", $params = array(), $headers = array())
-    {
-        $url = $this->url . $endpoint;
-        $_h = curl_init();
-        curl_setopt($_h, CURLOPT_URL, $url );
-        curl_setopt($_h, CURLOPT_HTTPHEADER,$headers);
-        curl_setopt($_h, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($_h, CURLOPT_DNS_USE_GLOBAL_CACHE, false );
-        curl_setopt($_h, CURLOPT_DNS_CACHE_TIMEOUT, 2 );
-        curl_setopt($_h, CURLINFO_HEADER_OUT, true);
-        if(!((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) {
-            curl_setopt($_h, CURLOPT_SSL_VERIFYPEER, 0);
-            curl_setopt($_h, CURLOPT_SSL_VERIFYHOST, 0);
-        }
-        if("POST" === $method) {
-            curl_setopt($_h, CURLOPT_POST, count($params));
-            curl_setopt($_h, CURLOPT_POSTFIELDS, json_encode($params));
-        }
-
-        $resp = curl_exec($_h);
-        curl_close($_h);
-        return $resp;
     }
 }

@@ -8,17 +8,17 @@ abstract class RestClient implements IRestClient
 {
     abstract public function url();
 
-    public function Post($endpoint, $params, $headers = array())
+    public function Post($endpoint, $params = [], $headers = [])
     {
         return $this->request($endpoint, "POST", $params, $headers);
     }
 
-    public function Get($endpoint, $params, $headers = array())
+    public function Get($endpoint, $params = [], $headers = [])
     {
         return $this->request($endpoint, "GET", $params, $headers);
     }
 
-    protected function request($endpoint, $method = "GET", $params = array(), $headers = array())
+    protected function request($endpoint, $method = "GET", $params = [], $headers = [])
     {
         $url = $this->url() . $endpoint;
         $_h = curl_init();
