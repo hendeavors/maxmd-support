@@ -15,12 +15,12 @@ final class DirectMessageSoapClient extends SoapClient
     {
         if(null == static::instance()) {
             static::$instance = new DirectMessageSoapClient("https://evalapi.max.md:8445/message/services/DirectMessageService?wsdl", array(
-                'trace' => 1, 
-                'cache_wsdl' => WSDL_CACHE_DISK, 
+                'trace' => 1,
+                'cache_wsdl' => WSDL_CACHE_DISK,
                 'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP
             ));
         }
 
         return static::instance();
-    }    
+    }
 }
