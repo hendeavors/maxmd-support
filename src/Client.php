@@ -24,4 +24,9 @@ final class Client
     {
         return DirectUtilSoapClient::getInstance();
     }
+
+    final public static function ProviderDirectoryRest()
+    {
+        return ProviderDirectoryRestClient::getInstance();
+    }
 }
