@@ -2,6 +2,7 @@
 namespace Endeavors\MaxMD\Support\Tests;
 
 use Orchestra\Testbench\TestCase;
+use Endeavors\MaxMD\Support\Client;
 use Endeavors\MaxMD\Support\ProviderDirectoryRestClient;
 
 class ProviderDirectoryTest extends TestCase
@@ -27,19 +28,16 @@ class ProviderDirectoryTest extends TestCase
         parent::setUp();
         $dotEnv = new \Dotenv\Dotenv(dirname(__DIR__));
         $dotEnv->load();
-
+        $this->ProviderRestClient = Client::ProviderDirectoryRest();
         ProviderDirectoryRestClient::login(env('MAXMD_APIUSERNAME'), env('MAXMD_APIPASSWORD'));
 
         if(!static::$testVariablesSet) {
-            $this->setup_test_vars_and_test_get_list_by_hisp();
+            $this->setupTestVarsAndTestGetListByHisp();
             static::$testVariablesSet = true;
         }
-
-
-        $this->ProviderRestClient = ProviderDirectoryRestClient::getInstance();
     }
 
-    public function test_class_is_built()
+    public function testClassIsBuilt()
     {
         $this->assertEquals('https://evalapi.max.md:8445/Directory/rest/getDirectory/', $this->ProviderRestClient->url());
     }
@@ -47,45 +45,45 @@ class ProviderDirectoryTest extends TestCase
     /**
      * @expectedException \UnexpectedValueException
      */
-    public function test_for_exception_when_not_logged_in()
+    public function testForExceptionWhenNotLoggedIn()
     {
         ProviderDirectoryRestClient::logout();
         $results = $this->ProviderRestClient->byHisp(self::HISP_OPERATOR);
     }
 
-    public function test_get_providers_list()
+    public function testGetProvidersList()
     {
         $this->markTestSkipped('Getting all the data is very slow.');
         $result = $this->ProviderRestClient->all();
     }
 
-    public function test_get_list_by_first_and_last_name()
+    public function testGetListByFirstAndLastName()
     {
         $result = $this->ProviderRestClient->byFirstNameLastName(static::$npiFirstName, static::$npiLastName);
         $this->assertTrue(is_array($result), 'Failed to get an array with npi name: ' . static::$npiFirstName .' ' . static::$npiLastName .'.');
         $this->assertHasAllColumns($result, 'Failed to get all columns with npi name: ' . static::$npiFirstName .' ' . static::$npiLastName .'.');
     }
 
-    public function test_get_list_by_first_and_last_name_null_when_not_found()
+    public function testGetListByFirstAndLastNameNullWhenNotFound()
     {
         $result = $this->ProviderRestClient->byFirstNameLastName('asdfds','xedfrtyu');
         $this->assertNull($result);
     }
 
-    public function test_get_list_by_npi()
+    public function testGetListByNpi()
     {
         $result = $this->ProviderRestClient->byProviderNpi(static::$npiNumber);
         $this->assertTrue(is_array($result), 'Failed to get an array with npi number: ' . static::$npiNumber .'.');
         $this->assertHasAllColumns($result, 'Failed to get all columns with npi number: ' . static::$npiNumber .'.');
     }
 
-    public function test_get_list_by_npi_null_when_not_found()
+    public function testGetListByNpiNullWhenNotFound()
     {
         $result = $this->ProviderRestClient->byProviderNpi('notarealnpi');
         $this->assertNull($result);
     }
 
-    public function test_get_list_by_organization_npi()
+    public function testGetListByOrganizationNpi()
     {
         $results = $this->ProviderRestClient->byOrganizationNpi(static::$organizationNpi);
         $this->assertTrue(is_array($results), 'Failed to get an array with organization npi number: ' . static::$organizationNpi .'.');
@@ -93,7 +91,7 @@ class ProviderDirectoryTest extends TestCase
         $this->assertHasAllColumns($results[0], 'Failed to get all columns with organization npi number: ' . static::$organizationNpi .'.');
     }
 
-    public function test_get_list_by_organization_name()
+    public function testGetListByOrganizationName()
     {
         $results = $this->ProviderRestClient->byOrganizationName(static::$organizationName);
         $this->assertTrue(is_array($results), 'Failed to get an array with organization name: ' . static::$organizationName .'.');
@@ -101,7 +99,7 @@ class ProviderDirectoryTest extends TestCase
         $this->assertHasAllColumns($results[0], 'Failed to get all columns with organization name: ' . static::$organizationName .'.');
     }
 
-    public function test_get_list_by_zip_code_range()
+    public function testGetListByZipCodeRange()
     {
         $results = $this->ProviderRestClient->byZipCodeRange(static::$zipRangeStart, static::$zipRangeEnd);
         $this->assertTrue(is_array($results), 'Failed to get an array with zip codes: ' . static::$zipRangeStart . 'and' . static::$zipRangeEnd . '.');
@@ -109,7 +107,7 @@ class ProviderDirectoryTest extends TestCase
         $this->assertHasAllColumns($results[0], 'Failed to get all columns with zip codes: ' . static::$zipRangeStart . 'and' . static::$zipRangeEnd . '.');
     }
 
-    public function test_get_list_by_custom()
+    public function testGetListByCustom()
     {
         $customArgs = [
           'hisp' => self::HISP_OPERATOR,
@@ -134,7 +132,7 @@ class ProviderDirectoryTest extends TestCase
         }
     }
 
-    private function setup_test_vars_and_test_get_list_by_hisp()
+    private function setupTestVarsAndTestGetListByHisp()
     {
         $results = ProviderDirectoryRestClient::getInstance()->byHisp(self::HISP_OPERATOR);
         $this->assertTrue(is_array($results));

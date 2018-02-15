@@ -2,6 +2,7 @@
 namespace Endeavors\MaxMD\Support\Tests;
 
 use Orchestra\Testbench\TestCase;
+use Endeavors\MaxMD\Support\Client;
 use Endeavors\MaxMD\Support\ProofingRestClient;
 
 class ProofingTest extends TestCase
@@ -15,9 +16,9 @@ class ProofingTest extends TestCase
         $dotEnv->load();
     }
 
-    public function test_login()
+    public function testLogin()
     {
-        $client = ProofingRestClient::getInstance();
+        $client = Client::ProofingRest();
         $payload = ['username' => env('MAXMD_APIUSERNAME'), 'password' => env('MAXMD_APIPASSWORD')];
         $headers = ["Accept: application/json", "Content-Type: application/json"];
         $response = $client->Get('personal/logIn', $payload, $headers);
