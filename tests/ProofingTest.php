@@ -9,13 +9,6 @@ class ProofingTest extends TestCase
 {
     private static $sessionId;
 
-    public function setUp()
-    {
-        parent::setUp();
-        $dotEnv = new \Dotenv\Dotenv(dirname(__DIR__));
-        $dotEnv->load();
-    }
-
     public function testLogin()
     {
         $client = Client::ProofingRest();

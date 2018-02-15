@@ -26,8 +26,7 @@ class ProviderDirectoryTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $dotEnv = new \Dotenv\Dotenv(dirname(__DIR__));
-        $dotEnv->load();
+
         $this->ProviderRestClient = Client::ProviderDirectoryRest();
         ProviderDirectoryRestClient::login(env('MAXMD_APIUSERNAME'), env('MAXMD_APIPASSWORD'));
 
@@ -49,12 +48,6 @@ class ProviderDirectoryTest extends TestCase
     {
         ProviderDirectoryRestClient::logout();
         $results = $this->ProviderRestClient->byHisp(self::HISP_OPERATOR);
-    }
-
-    public function testGetProvidersList()
-    {
-        $this->markTestSkipped('Getting all the data is very slow.');
-        $result = $this->ProviderRestClient->all();
     }
 
     public function testGetListByFirstAndLastName()
