@@ -96,6 +96,7 @@ final class ProviderDirectoryRestClient extends RestClient implements IRestClien
     }
 
     /**
+     * @deprecated
      * Get a record given a provider's first and last name
      * @param  string $firstName The provider's first name
      * @param  string $lastName  The provider's last name
@@ -103,8 +104,31 @@ final class ProviderDirectoryRestClient extends RestClient implements IRestClien
      */
     public function byFirstNameLastName($firstName, $lastName)
     {
+        return $this->byFirstNameLastNameFirstResult($firstName, $lastName);
+    }
+
+    /**
+     * @deprecated
+     * Get a record given a provider's first and last name
+     * @param  string $firstName The provider's first name
+     * @param  string $lastName  The provider's last name
+     * @return array|null        A single record with the provider's information or null if we can't find them.
+     */
+    public function byFirstNameLastNameFirst($firstName, $lastName)
+    {
         $results = $this->getArray('ByName/' . rawurlencode($firstName) . '/' . rawurlencode($lastName));
         return !empty($results[0]) && is_array($results[0]) ? $results[0] : null;
+    }
+
+    /**
+     * Get all provider records given a provider's first and last name
+     * @param  string $firstName The provider's first name
+     * @param  string $lastName  The provider's last name
+     * @return array|null        An array of the results from the request
+     */
+    public function byFirstNameLastNameAll($firstName, $lastName)
+    {
+        return $this->getArray('ByName/' . rawurlencode($firstName) . '/' . rawurlencode($lastName));
     }
 
     /**
