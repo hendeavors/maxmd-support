@@ -57,6 +57,14 @@ class ProviderDirectoryTest extends TestCase
         $this->assertHasAllColumns($result, 'Failed to get all columns with npi name: ' . static::$npiFirstName .' ' . static::$npiLastName .'.');
     }
 
+    public function testGetListByFirstAndLastNameAll()
+    {
+        $results = $this->ProviderRestClient->byFirstNameLastNameAll(static::$npiFirstName, static::$npiLastName);
+        $this->assertTrue(is_array($results), 'Failed to get an array with npi name: ' . static::$npiFirstName .' ' . static::$npiLastName .'.');
+        $this->assertArrayHasKey(0, $results, 'Failed to get array index 0 with npi name: '  . static::$npiFirstName .' ' . static::$npiLastName .'.');
+        $this->assertHasAllColumns($results[0], 'Failed to get all columns with npi name: ' . static::$npiFirstName .' ' . static::$npiLastName .'.');
+    }
+
     public function testGetListByFirstAndLastNameNullWhenNotFound()
     {
         $result = $this->ProviderRestClient->byFirstNameLastName('asdfds','xedfrtyu');
