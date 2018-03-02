@@ -103,8 +103,7 @@ final class ProviderDirectoryRestClient extends RestClient implements IRestClien
      */
     public function byFirstNameLastName($firstName, $lastName)
     {
-        $results = $this->getArray('ByName/' . rawurlencode($firstName) . '/' . rawurlencode($lastName));
-        return !empty($results[0]) && is_array($results[0]) ? $results[0] : null;
+        return $this->getArray('ByName/' . rawurlencode($firstName) . '/' . rawurlencode($lastName));
     }
 
     /**
