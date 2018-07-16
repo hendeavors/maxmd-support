@@ -35,6 +35,9 @@ abstract class RestClient implements IRestClient
         if ("POST" === $method) {
             curl_setopt($_h, CURLOPT_POST, count($params));
             curl_setopt($_h, CURLOPT_POSTFIELDS, json_encode($params));
+        } elseif ("DELETE" === $method) {
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
         }
 
         $resp = curl_exec($_h);
