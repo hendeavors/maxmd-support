@@ -152,7 +152,7 @@ class ProviderDirectoryTest extends TestCase
 
         foreach($needsToBeConfigured as $staticVar => $resultKey) {
             foreach($results as $result) {
-                if(!empty($result[$resultKey])) {
+                if(!empty($result[$resultKey]) && $result[$resultKey] != 'N/A') {
                     static::${$staticVar} = $result[$resultKey];
                     break;
                 }
