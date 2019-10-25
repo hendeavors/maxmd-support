@@ -18,6 +18,11 @@ abstract class RestClient implements IRestClient
         return $this->request($endpoint, "GET", $params, $headers);
     }
 
+    public function Delete($endpoint, $params = [], $headers = [])
+    {
+        return $this->request($endpoint, "DELETE", $params, $headers);
+    }
+
     protected function request($endpoint, $method = "GET", $params = [], $headers = [])
     {
         $url = $this->url() . $endpoint;
@@ -34,6 +39,9 @@ abstract class RestClient implements IRestClient
         }
         if ("POST" === $method) {
             curl_setopt($_h, CURLOPT_POST, count($params));
+            curl_setopt($_h, CURLOPT_POSTFIELDS, json_encode($params));
+        } elseif ("DELETE" === $method) {
+            curl_setopt($_h, CURLOPT_CUSTOMREQUEST, "DELETE");
             curl_setopt($_h, CURLOPT_POSTFIELDS, json_encode($params));
         }
 
