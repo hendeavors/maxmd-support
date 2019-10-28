@@ -21,6 +21,5 @@
     <php>
         <env name="MAXMD_APIUSERNAME" value=""/>
         <env name="MAXMD_APIPASSWORD" value=""/>
-        <env name="MAXMD_DOMAIN" value=""/>
     </php>
 </phpunit>
