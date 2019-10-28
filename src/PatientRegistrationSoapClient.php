@@ -2,6 +2,8 @@
 
 namespace Endeavors\MaxMD\Support;
 
+use Endeavors\MaxMD\Support\Domains;
+
 final class PatientRegistrationSoapClient extends SoapClient
 {
     private static $instance = null;
@@ -14,7 +16,7 @@ final class PatientRegistrationSoapClient extends SoapClient
     public static function getInstance()
     {
         if(null == static::instance()) {
-            static::$instance = new PatientRegistrationSoapClient("https://api.directmdemail.com/registration/services/PatientRegistrationService?wsdl", array('trace' => 1));
+            static::$instance = new PatientRegistrationSoapClient(Domains::soap() . "/registration/services/PatientRegistrationService?wsdl", array('trace' => 1));
         }
 
         return static::instance();

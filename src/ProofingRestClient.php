@@ -3,6 +3,7 @@
 namespace Endeavors\MaxMD\Support;
 
 use Endeavors\MaxMD\Support\Contracts\IRestClient;
+use Endeavors\MaxMD\Support\Domains;
 use Endeavors\MaxMD\Support\RestClient;
 
 class ProofingRestClient extends RestClient implements IRestClient
@@ -24,7 +25,7 @@ class ProofingRestClient extends RestClient implements IRestClient
     final public static function getInstance()
     {
         if( null === static::instance() ) {
-            static::$instance = new ProofingRestClient("https://directapi.max.md:8445/AutoProofingRESTful/rest/app/");
+            static::$instance = new ProofingRestClient(Domains::rest() . "/AutoProofingRESTful/rest/app/");
         }
 
         return static::instance();
