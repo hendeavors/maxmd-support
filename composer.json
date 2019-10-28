@@ -21,7 +21,7 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "3.2.*",
+        "phpunit/phpunit": "^7.0",
         "endeavors/maxmd-apiauth": "0.1.*@dev"
     },
     "extra": {
